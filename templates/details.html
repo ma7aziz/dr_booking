@@ -1,0 +1,57 @@
+{%extends 'base.html' %}
+{%block content%}
+<div class="container">
+<h1>{{doctor.name}}</h1>
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Book Now</a>
+          <div id="modal1" class="modal">
+            <div class="modal-content">
+              <h3>Please Fill the following form:</h3>
+              <form action="{% url 'book' doctor.id %}" method="POST">
+                {%csrf_token%}
+                <input type="hidden" value="{{doctor.id}}" name="doctor">
+                <label for="name">Patient name:</label>
+                <input type="text" name="name" required>
+                <label for="email">Email</label>
+                <input type="email" name="email" required>
+                <label for="phone">Phone number</label>
+                <input type="number" name="phone" required>
+                <label for="date">Choose a day </label>
+                <input type="text" class="datepicker" name="date">
+                <label for="">Time</label>
+                <select name="time" id="">
+                  <option value="" disabled selected>Choose Time</option>
+                  {% for key, value in time%}
+                  <option value="{{value}}">{{key}}</option>
+                  {%endfor%}
+                </select>
+                <div class="modal-footer">
+                  <input type="submit" class=" btn btn-large waves-effect  " value="Confirm and Book">
+              </form>
+            </div>
+{%endblock%}
+{%block script %}
+<script>
+    $(document).ready(function () {
+      //max date of reservatio//
+  
+      let maxdate = new Date();
+      maxdate.setDate(maxdate.getDate() + 4);
+  
+      $('select').formSelect();
+      $('.modal').modal({
+  
+      });
+      $('.datepicker').datepicker({
+        minDate: new Date(),
+        maxDate: maxdate,
+        showClearBtn: true,
+        format: 'yyyy-mm-dd'
+  
+      });
+  
+  
+    });
+  </script>
+
+
+{%endblock%}

@@ -1,0 +1,80 @@
+{%extends 'base.html'%}
+{%load static %}
+
+
+{% block content %}
+<!-- <main> -->
+<div class="slideshow">
+
+    <img src=" {% static 'img/ali-yahya-YGkEFQqgI94-unsplash.jpg' %}" alt="">
+    <img src="{% static 'img/linkedin-sales-navigator-_h5CPTwuVHM-unsplash.jpg' %}" alt="">
+    <img src="{% static 'img/cdc-BSozBCQn6oY-unsplash.jpg' %}" alt="">
+
+</div>
+<div class="row">
+    <form class="col s12" action="{%url 'search' %}" method="POST">
+        {%csrf_token%}
+        <div class="row search-form">
+            <div class="input-field col ">
+                <i class="fas fa-user-md icon  fa-2x prefix"></i>
+                <input id="icon_prefix" type="text" class="validate" name="name">
+                <label for="icon_prefix">Doctor Name</label>
+            </div>
+            <div class="input-field col ">
+                <i class="fas fa-map-marker-alt fa-2x prefix"></i>
+                <select name="city">
+                    <option value="" disabled selected>Search By City</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Alexandria">Alexandria</option>
+                </select>
+            </div>
+            <div class="input-field col ">
+                <i class="fas fa-stethoscope  icon fa-2x prefix"></i>
+                <select name="speciality">
+                    <option value="" disabled selected>Search By Speciality</option>
+                    {%for key,value in speciality%}
+                    <option value="{{ key }}">{{ value }}</option>
+                    {%endfor%}
+                </select>
+
+            </div>
+            <div class="col input-field">
+                <button class="btn btn-large"><i class="fas fa-search search "></i> Search</button>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+<h1>Search And Book Your Doctor now..</h1>
+<!-- </main> -->
+<section>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam architecto iusto, eveniet officiis id repellat
+        delectus omnis. Quae alias vel ipsa, praesentium sed possimus quos natus minus ipsam maxime unde
+        reprehenderit odio nisi cupiditate dolore doloremque dicta mollitia voluptate? Deserunt id animi optio
+        tempore porro iure officia? Ratione beatae placeat ab amet repudiandae consectetur animi, accusantium quae
+        eos quaerat autem molestias alias! Quis, quasi ratione? Optio quaerat repellat accusantium dolorum
+        repudiandae neque? Suscipit consectetur dignissimos accusantium incidunt tempore aperiam fugiat blanditiis
+        minus, modi eius, dolor excepturi quibusdam qui deserunt laborum veritatis similique! Accusantium libero
+        aliquid officia, voluptatibus at eum natus!</p>
+</section>
+{%endblock%}
+{%block script %}
+
+
+<script type="text/javascript" src="{% static 'css/slick/slick.min.js'%}"></script>
+<script>
+    $(document).ready(function () {
+        $('.slideshow').slick({
+            autoplay: true,
+            arrows: false,
+            fade: true,
+            centerPadding: "0px",
+            initialSlide: 2,
+            zIndex: 0,
+        });
+
+        $('select').formSelect();
+    });
+</script>
+{%endblock%}
